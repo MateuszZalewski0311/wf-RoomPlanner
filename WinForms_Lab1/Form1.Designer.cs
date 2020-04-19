@@ -39,7 +39,7 @@
             this.doubleBedButton = new System.Windows.Forms.Button();
             this.wallButton = new System.Windows.Forms.Button();
             this.createdFurnitureGroupBox = new System.Windows.Forms.GroupBox();
-            this.createdFurnitureListBox = new System.Windows.Forms.ListBox();
+            this.createdFurnitureListBox = new RefreshingListBox();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newBlueprintToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -234,7 +234,7 @@
             // 
             this.newBlueprintToolStripMenuItem.Name = "newBlueprintToolStripMenuItem";
             this.newBlueprintToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F2;
-            this.newBlueprintToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newBlueprintToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
             this.newBlueprintToolStripMenuItem.Text = "New blueprint";
             this.newBlueprintToolStripMenuItem.Click += new System.EventHandler(this.newBlueprintToolStripMenuItem_Click);
             // 
@@ -245,6 +245,7 @@
             this.ClientSize = new System.Drawing.Size(684, 461);
             this.Controls.Add(this.splitContainer);
             this.Controls.Add(this.menuStrip);
+            this.DoubleBuffered = true;
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip;
             this.MinimumSize = new System.Drawing.Size(400, 300);
@@ -285,7 +286,7 @@
         private System.Windows.Forms.Button tableButton;
         private System.Windows.Forms.Button sofaButton;
         private System.Windows.Forms.Button doubleBedButton;
-        private System.Windows.Forms.ListBox createdFurnitureListBox;
+        private RefreshingListBox createdFurnitureListBox;
         private System.Windows.Forms.Button wallButton;
     }
 }

@@ -96,12 +96,14 @@ namespace WinForms_Lab1
                         if (selectedItem.path != null && selectedItem.path.IsOutlineVisible(e.Location, wallPen))
                         {
                             movingSelectedItem = true;
+                            selectedItem.anchorPoint = new PointF(selectedItem.displayPoint.X - e.X, selectedItem.displayPoint.Y - e.Y);
                             return;
                         }
                     }
                     else if (Math.Abs(selectedItem.displayPoint.X - e.X) < selectedItem.displayImage.Width / 2 && (Math.Abs(selectedItem.displayPoint.Y - e.Y) < selectedItem.displayImage.Height / 2))
                     {
                         movingSelectedItem = true;
+                        selectedItem.anchorPoint = new PointF(selectedItem.displayPoint.X - e.X, selectedItem.displayPoint.Y - e.Y);
                         return;
                     }
                 }
@@ -118,6 +120,8 @@ namespace WinForms_Lab1
                         {
                             createdFurnitureListBox.ClearSelected();
                             createdFurnitureListBox.SetSelected(i, true);
+                            movingSelectedItem = true;
+                            item.anchorPoint = new PointF(item.displayPoint.X - e.X, item.displayPoint.Y - e.Y);
                         }
                     }
                     else
@@ -126,6 +130,8 @@ namespace WinForms_Lab1
                         {
                             createdFurnitureListBox.ClearSelected();
                             createdFurnitureListBox.SetSelected(i, true);
+                            movingSelectedItem = true;
+                            item.anchorPoint = new PointF(item.displayPoint.X - e.X, item.displayPoint.Y - e.Y);
                         }
                     }
                 }
@@ -172,7 +178,11 @@ namespace WinForms_Lab1
 
         private void blueprintPictureBox_MouseUp(object sender, MouseEventArgs e)
         {
-            movingSelectedItem = false;
+            if (movingSelectedItem == true && createdFurnitureListBox.SelectedItem is FurnitureListBoxItem selectedItem)
+            {
+                movingSelectedItem = false;
+                selectedItem.anchorPoint = null;
+            }
         }
 
         private void RoomPlanner_Resize(object sender, EventArgs e)
@@ -194,7 +204,29 @@ namespace WinForms_Lab1
         private void blueprintPictureBox_MouseMove(object sender, MouseEventArgs e)
         {
             if (wallPainting == false)
+            {
+                if (movingSelectedItem == true && createdFurnitureListBox.SelectedItem is FurnitureListBoxItem selectedItem && selectedItem.anchorPoint != null)
+                {
+                    PointF point = new PointF(e.X + selectedItem.anchorPoint.Value.X, e.Y + selectedItem.anchorPoint.Value.Y);
+                    if ((string)selectedItem.displayImage.Tag == "wall.png")
+                    {
+                        Matrix translateMatrix = new Matrix();
+                        translateMatrix.Translate(point.X - selectedItem.displayPoint.X, point.Y - selectedItem.displayPoint.Y);
+                        selectedItem.path.Transform(translateMatrix);
+                        selectedItem.displayPoint.X = selectedItem.path.PathPoints[0].X;
+                        selectedItem.displayPoint.Y = selectedItem.path.PathPoints[0].Y;
+                    }
+                    else
+                    {
+                        selectedItem.displayPoint.X = point.X;
+                        selectedItem.displayPoint.Y = point.Y;
+                    }
+                    //createdFurnitureListBox.Items[createdFurnitureListBox.SelectedIndex] = createdFurnitureListBox.Items[createdFurnitureListBox.SelectedIndex];
+                    createdFurnitureListBox.RefreshItem(createdFurnitureListBox.SelectedIndex);
+                    repaintPictureBoxFromList();
+                }
                 return;
+            }
             repaintPictureBoxFromList(e.Location);
         }
 
@@ -282,6 +314,19 @@ namespace WinForms_Lab1
                 createdFurnitureListBox.Items.RemoveAt(createdFurnitureListBox.SelectedIndex);
                 //repaintPictureBoxFromList();
             }
+        }
+    }
+
+    public class RefreshingListBox : ListBox
+    {
+        public new void RefreshItem(int index)
+        {
+            base.RefreshItem(index);
+        }
+
+        public new void RefreshItems()
+        {
+            base.RefreshItems();
         }
     }
 }

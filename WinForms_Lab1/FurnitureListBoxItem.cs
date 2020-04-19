@@ -8,11 +8,13 @@ namespace WinForms_Lab1
     {
         public Image displayImage;
         public PointF displayPoint;
+        public PointF? anchorPoint;
         public GraphicsPath path;
         public FurnitureListBoxItem(Image _displayImage, PointF _displayPoint, GraphicsPath _path = null)
         {
             displayImage = _displayImage;
             displayPoint = _displayPoint;
+            anchorPoint = null;
             path = _path;
         }
 
