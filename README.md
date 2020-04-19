@@ -1,8 +1,10 @@
-#RoomPlanner
+# RoomPlanner
 This is a RoomPlanner app.
 
-#Initial commit
-Adding and selecting furniture both by clicking and using list.
-Deleting - TODO
+Adding - done 
+Selecting furniture both by clicking and using list - done
+Deleting - done
 Moving - TODO
 Rotating - TODO
+Save/Load - TODO
+Localization - TODO

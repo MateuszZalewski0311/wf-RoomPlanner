@@ -234,7 +234,7 @@
             // 
             this.newBlueprintToolStripMenuItem.Name = "newBlueprintToolStripMenuItem";
             this.newBlueprintToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F2;
-            this.newBlueprintToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.newBlueprintToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.newBlueprintToolStripMenuItem.Text = "New blueprint";
             this.newBlueprintToolStripMenuItem.Click += new System.EventHandler(this.newBlueprintToolStripMenuItem_Click);
             // 
@@ -245,12 +245,14 @@
             this.ClientSize = new System.Drawing.Size(684, 461);
             this.Controls.Add(this.splitContainer);
             this.Controls.Add(this.menuStrip);
+            this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip;
             this.MinimumSize = new System.Drawing.Size(400, 300);
             this.Name = "RoomPlanner";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "RoomPlanner";
             this.Load += new System.EventHandler(this.RoomPlanner_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RoomPlanner_KeyDown);
             this.Resize += new System.EventHandler(this.RoomPlanner_Resize);
             this.splitContainer.Panel1.ResumeLayout(false);
             this.splitContainer.Panel2.ResumeLayout(false);

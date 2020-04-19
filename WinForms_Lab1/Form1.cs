@@ -274,5 +274,14 @@ namespace WinForms_Lab1
                 resetWallPainting();
             repaintPictureBoxFromList();
         }
+
+        private void RoomPlanner_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete && createdFurnitureListBox.SelectedIndex > -1)
+            {
+                createdFurnitureListBox.Items.RemoveAt(createdFurnitureListBox.SelectedIndex);
+                //repaintPictureBoxFromList();
+            }
+        }
     }
 }
