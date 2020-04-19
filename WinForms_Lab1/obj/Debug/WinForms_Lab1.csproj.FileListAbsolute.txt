@@ -1,0 +1,10 @@
+D:\Programowanie\C#\Projects vs19\WinForms_Lab1\WinForms_Lab1\bin\Debug\WinForms_Lab1.exe.config
+D:\Programowanie\C#\Projects vs19\WinForms_Lab1\WinForms_Lab1\bin\Debug\WinForms_Lab1.exe
+D:\Programowanie\C#\Projects vs19\WinForms_Lab1\WinForms_Lab1\bin\Debug\WinForms_Lab1.pdb
+D:\Programowanie\C#\Projects vs19\WinForms_Lab1\WinForms_Lab1\obj\Debug\WinForms_Lab1.csprojAssemblyReference.cache
+D:\Programowanie\C#\Projects vs19\WinForms_Lab1\WinForms_Lab1\obj\Debug\WinForms_Lab1.Properties.Resources.resources
+D:\Programowanie\C#\Projects vs19\WinForms_Lab1\WinForms_Lab1\obj\Debug\WinForms_Lab1.csproj.GenerateResource.cache
+D:\Programowanie\C#\Projects vs19\WinForms_Lab1\WinForms_Lab1\obj\Debug\WinForms_Lab1.csproj.CoreCompileInputs.cache
+D:\Programowanie\C#\Projects vs19\WinForms_Lab1\WinForms_Lab1\obj\Debug\WinForms_Lab1.exe
+D:\Programowanie\C#\Projects vs19\WinForms_Lab1\WinForms_Lab1\obj\Debug\WinForms_Lab1.pdb
+D:\Programowanie\C#\Projects vs19\WinForms_Lab1\WinForms_Lab1\obj\Debug\WinForms_Lab1.RoomPlanner.resources
