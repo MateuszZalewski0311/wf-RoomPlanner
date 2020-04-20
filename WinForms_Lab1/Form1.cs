@@ -368,37 +368,43 @@ namespace WinForms_Lab1
                     string filePath = openFileDialog.FileName;
 
                     //Read the contents of the file into a stream
-                    var fileStream = openFileDialog.OpenFile();
-                    if (fileStream != null)
+                    Stream fileStream = null;
+                    try
                     {
-                        BinaryFormatter formatter = new BinaryFormatter();
-                        List<FurnitureListBoxItem> listBoxItems = new List<FurnitureListBoxItem>();
-                        try
+                        fileStream = openFileDialog.OpenFile();
+                        if (fileStream != null)
                         {
+                            BinaryFormatter formatter = new BinaryFormatter();
+                            List<FurnitureListBoxItem> listBoxItems = new List<FurnitureListBoxItem>();
+
                             listBoxItems = (List<FurnitureListBoxItem>)formatter.Deserialize(fileStream);
-                        }
-                        catch (System.Runtime.Serialization.SerializationException)
-                        {
-                            MessageBox.Show("Failed to load the blueprint.");
-                            return;
-                        }
 
-                        newBitmapInPictureBox(splitContainer.Panel1.Width, splitContainer.Panel1.Height);
-                        createdFurnitureListBox.Items.Clear();
-                        if (selectedButton != null)
-                        {
-                            selectedButton.BackColor = Color.White;
-                            selectedButton = null;
-                        }
-                        wallPainting = false;
-                        wallPath = new GraphicsPath();
+                            newBitmapInPictureBox(splitContainer.Panel1.Width, splitContainer.Panel1.Height);
+                            createdFurnitureListBox.Items.Clear();
+                            if (selectedButton != null)
+                            {
+                                selectedButton.BackColor = Color.White;
+                                selectedButton = null;
+                            }
+                            wallPainting = false;
+                            wallPath = new GraphicsPath();
 
-                        for (int i = 0; i < listBoxItems.Count; ++i)
-                        {
-                            createdFurnitureListBox.Items.Add(listBoxItems[i]);
+                            for (int i = 0; i < listBoxItems.Count; ++i)
+                            {
+                                createdFurnitureListBox.Items.Add(listBoxItems[i]);
+                            }
                         }
                     }
-                    fileStream.Close();
+                    catch (System.Runtime.Serialization.SerializationException)
+                    {
+                        MessageBox.Show("Failed to load the blueprint.");
+                        return;
+                    }
+                    finally
+                    {
+                        if (fileStream != null)
+                            fileStream.Close();
+                    }
                     repaintPictureBoxFromList();
                     createdFurnitureListBox.RefreshItems();
                     MessageBox.Show("Blueprint loaded successfully!");
@@ -408,7 +414,6 @@ namespace WinForms_Lab1
 
         private void saveBlueprintToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ; // TODO: Saving
             using (SaveFileDialog saveFileDialog = new SaveFileDialog())
             {
                 saveFileDialog.Filter = "Blueprint files (*.bp)|*.bp";
@@ -416,28 +421,40 @@ namespace WinForms_Lab1
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    var fileStream = saveFileDialog.OpenFile();
-                    if (fileStream != null)
+                    string[] fileName = saveFileDialog.FileName.Split('.');
+                    if (fileName[fileName.Length - 1] != "bp")
                     {
-                        BinaryFormatter formatter = new BinaryFormatter();
-                        List<FurnitureListBoxItem> listBoxItems = new List<FurnitureListBoxItem>();
-                        for (int i = 0; i < createdFurnitureListBox.Items.Count; ++i)
-                        {
-                            if (createdFurnitureListBox.Items[i] is FurnitureListBoxItem item)
-                                listBoxItems.Add(item);
-                        }
+                        MessageBox.Show("Failed to save the blueprint.");
+                        return;
+                    }
 
-                        try
+                    Stream fileStream = null;
+                    try
+                    {
+                        fileStream = saveFileDialog.OpenFile();
+                        if (fileStream != null)
                         {
+                            BinaryFormatter formatter = new BinaryFormatter();
+                            List<FurnitureListBoxItem> listBoxItems = new List<FurnitureListBoxItem>();
+                            for (int i = 0; i < createdFurnitureListBox.Items.Count; ++i)
+                            {
+                                if (createdFurnitureListBox.Items[i] is FurnitureListBoxItem item)
+                                    listBoxItems.Add(item);
+                            }
+
                             formatter.Serialize(fileStream, listBoxItems);
                         }
-                        catch (System.Runtime.Serialization.SerializationException)
-                        {
-                            MessageBox.Show("Failed to save the blueprint.");
-                            return;
-                        }
                     }
-                    fileStream.Close();
+                    catch(Exception)
+                    {
+                        MessageBox.Show("Failed to save the blueprint.");
+                        return;
+                    }
+                    finally
+                    {
+                        if (fileStream != null)
+                            fileStream.Close();
+                    }
                     MessageBox.Show("Blueprint saved successfully!");
                 }
             }
