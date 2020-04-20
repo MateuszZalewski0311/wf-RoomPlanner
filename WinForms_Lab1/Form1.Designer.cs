@@ -39,10 +39,12 @@
             this.doubleBedButton = new System.Windows.Forms.Button();
             this.wallButton = new System.Windows.Forms.Button();
             this.createdFurnitureGroupBox = new System.Windows.Forms.GroupBox();
-            this.createdFurnitureListBox = new RefreshingListBox();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newBlueprintToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openBlueprintToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveBlueprintToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createdFurnitureListBox = new WinForms_Lab1.RefreshingListBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -65,6 +67,7 @@
             // 
             this.splitContainer.Panel1.AutoScroll = true;
             this.splitContainer.Panel1.Controls.Add(this.blueprintPictureBox);
+            this.splitContainer.Panel1.Resize += new System.EventHandler(this.splitContainer_Panel1_Resize);
             // 
             // splitContainer.Panel2
             // 
@@ -202,16 +205,6 @@
             this.createdFurnitureGroupBox.TabStop = false;
             this.createdFurnitureGroupBox.Text = "Created furniture";
             // 
-            // createdFurnitureListBox
-            // 
-            this.createdFurnitureListBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.createdFurnitureListBox.FormattingEnabled = true;
-            this.createdFurnitureListBox.Location = new System.Drawing.Point(3, 16);
-            this.createdFurnitureListBox.Name = "createdFurnitureListBox";
-            this.createdFurnitureListBox.Size = new System.Drawing.Size(214, 194);
-            this.createdFurnitureListBox.TabIndex = 0;
-            this.createdFurnitureListBox.SelectedIndexChanged += new System.EventHandler(this.createdFurnitureListBox_SelectedIndexChanged);
-            // 
             // menuStrip
             // 
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -225,7 +218,9 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newBlueprintToolStripMenuItem});
+            this.newBlueprintToolStripMenuItem,
+            this.openBlueprintToolStripMenuItem,
+            this.saveBlueprintToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -238,6 +233,30 @@
             this.newBlueprintToolStripMenuItem.Text = "New blueprint";
             this.newBlueprintToolStripMenuItem.Click += new System.EventHandler(this.newBlueprintToolStripMenuItem_Click);
             // 
+            // openBlueprintToolStripMenuItem
+            // 
+            this.openBlueprintToolStripMenuItem.Name = "openBlueprintToolStripMenuItem";
+            this.openBlueprintToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.openBlueprintToolStripMenuItem.Text = "Open blueprint";
+            this.openBlueprintToolStripMenuItem.Click += new System.EventHandler(this.openBlueprintToolStripMenuItem_Click);
+            // 
+            // saveBlueprintToolStripMenuItem
+            // 
+            this.saveBlueprintToolStripMenuItem.Name = "saveBlueprintToolStripMenuItem";
+            this.saveBlueprintToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.saveBlueprintToolStripMenuItem.Text = "Save blueprint";
+            this.saveBlueprintToolStripMenuItem.Click += new System.EventHandler(this.saveBlueprintToolStripMenuItem_Click);
+            // 
+            // createdFurnitureListBox
+            // 
+            this.createdFurnitureListBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.createdFurnitureListBox.FormattingEnabled = true;
+            this.createdFurnitureListBox.Location = new System.Drawing.Point(3, 16);
+            this.createdFurnitureListBox.Name = "createdFurnitureListBox";
+            this.createdFurnitureListBox.Size = new System.Drawing.Size(214, 194);
+            this.createdFurnitureListBox.TabIndex = 0;
+            this.createdFurnitureListBox.SelectedIndexChanged += new System.EventHandler(this.createdFurnitureListBox_SelectedIndexChanged);
+            // 
             // RoomPlanner
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -245,7 +264,6 @@
             this.ClientSize = new System.Drawing.Size(684, 461);
             this.Controls.Add(this.splitContainer);
             this.Controls.Add(this.menuStrip);
-            this.DoubleBuffered = true;
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip;
             this.MinimumSize = new System.Drawing.Size(400, 300);
@@ -254,7 +272,7 @@
             this.Text = "RoomPlanner";
             this.Load += new System.EventHandler(this.RoomPlanner_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RoomPlanner_KeyDown);
-            this.Resize += new System.EventHandler(this.RoomPlanner_Resize);
+            this.Resize += new System.EventHandler(this.splitContainer_Panel1_Resize);
             this.splitContainer.Panel1.ResumeLayout(false);
             this.splitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
@@ -288,6 +306,8 @@
         private System.Windows.Forms.Button doubleBedButton;
         private RefreshingListBox createdFurnitureListBox;
         private System.Windows.Forms.Button wallButton;
+        private System.Windows.Forms.ToolStripMenuItem openBlueprintToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveBlueprintToolStripMenuItem;
     }
 }
 

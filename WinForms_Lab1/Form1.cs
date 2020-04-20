@@ -5,7 +5,9 @@ using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -64,6 +66,7 @@ namespace WinForms_Lab1
 
             Button oldButton = selectedButton;
             selectedButton = (Button)sender;
+            createdFurnitureListBox.ClearSelected();
 
             if (wallPainting == true)
             {
@@ -113,7 +116,7 @@ namespace WinForms_Lab1
                     if (!(createdFurnitureListBox.Items[i] is FurnitureListBoxItem))
                         continue;
                     FurnitureListBoxItem item = createdFurnitureListBox.Items[i] as FurnitureListBoxItem;
-                    if ((string)item.displayImage.Tag == "wall.png" && item.path != null)
+                    if (item.type == "wall.png" && item.path != null)
                     {
                         Pen wallPen = new Pen(Color.Black, 10);
                         wallPen.LineJoin = LineJoin.Round;
@@ -186,7 +189,7 @@ namespace WinForms_Lab1
             }
         }
 
-        private void RoomPlanner_Resize(object sender, EventArgs e)
+        private void splitContainer_Panel1_Resize(object sender, EventArgs e)
         {
             if (blueprintPictureBox.Width > splitContainer.Panel1.Width && blueprintPictureBox.Height > splitContainer.Panel1.Height)
                 return;
@@ -197,7 +200,8 @@ namespace WinForms_Lab1
             Bitmap bmp = new Bitmap(blueprintPictureBox.Width, blueprintPictureBox.Height);
             Graphics g = Graphics.FromImage(bmp);
             g.FillRectangle(Brushes.White, 0, 0, bmp.Width, bmp.Height);
-            g.DrawImage(blueprintPictureBox.Image , 0, 0);
+            if (blueprintPictureBox.Image != null)
+                g.DrawImage(blueprintPictureBox.Image , 0, 0);
             blueprintPictureBox.Image = bmp;
             g.Dispose();
         }
@@ -269,7 +273,7 @@ namespace WinForms_Lab1
                     continue;
                 
                 FurnitureListBoxItem item = createdFurnitureListBox.Items[i] as FurnitureListBoxItem;
-                if ((string)item.displayImage.Tag == "wall.png")
+                if (item.type == "wall.png")
                 {
                     if (item == createdFurnitureListBox.SelectedItem)
                         wallPen = new Pen(Color.FromArgb(128, 0, 0, 0), 10); // semi transparent
@@ -346,7 +350,96 @@ namespace WinForms_Lab1
             if (e.KeyCode == Keys.Delete && createdFurnitureListBox.SelectedIndex > -1)
             {
                 createdFurnitureListBox.Items.RemoveAt(createdFurnitureListBox.SelectedIndex);
-                //repaintPictureBoxFromList();
+            }
+        }
+
+        private void openBlueprintToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                //openFileDialog.InitialDirectory = Directory.GetCurrentDirectory();
+                openFileDialog.Filter = "Blueprint files (*.bp)|*.bp";
+                openFileDialog.FilterIndex = 2;
+                //openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    //Get the path of specified file
+                    string filePath = openFileDialog.FileName;
+
+                    //Read the contents of the file into a stream
+                    var fileStream = openFileDialog.OpenFile();
+                    if (fileStream != null)
+                    {
+                        BinaryFormatter formatter = new BinaryFormatter();
+                        List<FurnitureListBoxItem> listBoxItems = new List<FurnitureListBoxItem>();
+                        try
+                        {
+                            listBoxItems = (List<FurnitureListBoxItem>)formatter.Deserialize(fileStream);
+                        }
+                        catch (System.Runtime.Serialization.SerializationException)
+                        {
+                            MessageBox.Show("Failed to load the blueprint.");
+                            return;
+                        }
+
+                        newBitmapInPictureBox(splitContainer.Panel1.Width, splitContainer.Panel1.Height);
+                        createdFurnitureListBox.Items.Clear();
+                        if (selectedButton != null)
+                        {
+                            selectedButton.BackColor = Color.White;
+                            selectedButton = null;
+                        }
+                        wallPainting = false;
+                        wallPath = new GraphicsPath();
+
+                        for (int i = 0; i < listBoxItems.Count; ++i)
+                        {
+                            createdFurnitureListBox.Items.Add(listBoxItems[i]);
+                        }
+                    }
+                    fileStream.Close();
+                    repaintPictureBoxFromList();
+                    createdFurnitureListBox.RefreshItems();
+                    MessageBox.Show("Blueprint loaded successfully!");
+                }
+            }
+        }
+
+        private void saveBlueprintToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ; // TODO: Saving
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = "Blueprint files (*.bp)|*.bp";
+                saveFileDialog.FilterIndex = 2;
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    var fileStream = saveFileDialog.OpenFile();
+                    if (fileStream != null)
+                    {
+                        BinaryFormatter formatter = new BinaryFormatter();
+                        List<FurnitureListBoxItem> listBoxItems = new List<FurnitureListBoxItem>();
+                        for (int i = 0; i < createdFurnitureListBox.Items.Count; ++i)
+                        {
+                            if (createdFurnitureListBox.Items[i] is FurnitureListBoxItem item)
+                                listBoxItems.Add(item);
+                        }
+
+                        try
+                        {
+                            formatter.Serialize(fileStream, listBoxItems);
+                        }
+                        catch (System.Runtime.Serialization.SerializationException)
+                        {
+                            MessageBox.Show("Failed to save the blueprint.");
+                            return;
+                        }
+                    }
+                    fileStream.Close();
+                    MessageBox.Show("Blueprint saved successfully!");
+                }
             }
         }
     }
