@@ -364,8 +364,12 @@ namespace WinForms_Lab1
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    //Get the path of specified file
-                    string filePath = openFileDialog.FileName;
+                    string[] fileName = openFileDialog.FileName.Split('.');
+                    if (fileName[fileName.Length - 1] != "bp")
+                    {
+                        MessageBox.Show("Failed to open the blueprint.");
+                        return;
+                    }
 
                     //Read the contents of the file into a stream
                     Stream fileStream = null;
