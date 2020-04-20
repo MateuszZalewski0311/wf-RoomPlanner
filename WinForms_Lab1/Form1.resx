@@ -129,6 +129,9 @@
   <data name="splitContainer.Panel1.AutoScroll" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="blueprintPictureBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="blueprintPictureBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
@@ -171,6 +174,9 @@
   <data name="coffeTableButton.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Stretch</value>
   </data>
+  <data name="coffeTableButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="coffeTableButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 3</value>
   </data>
@@ -194,6 +200,9 @@
   </data>
   <data name="tableButton.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Stretch</value>
+  </data>
+  <data name="tableButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="tableButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>84, 3</value>
@@ -219,6 +228,9 @@
   <data name="sofaButton.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Stretch</value>
   </data>
+  <data name="sofaButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="sofaButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 84</value>
   </data>
@@ -243,6 +255,9 @@
   <data name="doubleBedButton.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Stretch</value>
   </data>
+  <data name="doubleBedButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="doubleBedButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>84, 84</value>
   </data>
@@ -266,6 +281,9 @@
   </data>
   <data name="wallButton.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Stretch</value>
+  </data>
+  <data name="wallButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="wallButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 165</value>
@@ -453,44 +471,44 @@
   <data name="&gt;&gt;splitContainer.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <metadata name="menuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <data name="menuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing">
     <value>17, 17</value>
-  </metadata>
+  </data>
   <data name="newBlueprintToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>F2</value>
   </data>
   <data name="newBlueprintToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>168, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="newBlueprintToolStripMenuItem.Text" xml:space="preserve">
     <value>New blueprint</value>
   </data>
   <data name="openBlueprintToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>168, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="openBlueprintToolStripMenuItem.Text" xml:space="preserve">
     <value>Open blueprint</value>
   </data>
   <data name="saveBlueprintToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>168, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="saveBlueprintToolStripMenuItem.Text" xml:space="preserve">
     <value>Save blueprint</value>
   </data>
   <data name="englishToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>112, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="englishToolStripMenuItem.Text" xml:space="preserve">
     <value>English</value>
   </data>
   <data name="polskiToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>112, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="polskiToolStripMenuItem.Text" xml:space="preserve">
     <value>Polski</value>
   </data>
   <data name="languageToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>168, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="languageToolStripMenuItem.Text" xml:space="preserve">
     <value>Language</value>
@@ -525,9 +543,9 @@
   <data name="&gt;&gt;menuStrip.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <data name="$this.Localizable" type="System.Boolean, mscorlib">
     <value>True</value>
-  </metadata>
+  </data>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 13</value>
   </data>
@@ -590,5 +608,35 @@
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="FileDialog.Filter" xml:space="preserve">
+    <value>Blueprint files (*.bp)|*.bp</value>
+  </data>
+  <data name="FurnitureListBoxItem.CoffeTable.Text" xml:space="preserve">
+    <value>Kitchen Table</value>
+  </data>
+  <data name="FurnitureListBoxItem.DoubleBed.Text" xml:space="preserve">
+    <value>Bed</value>
+  </data>
+  <data name="FurnitureListBoxItem.Sofa.Text" xml:space="preserve">
+    <value>Sofa</value>
+  </data>
+  <data name="FurnitureListBoxItem.Table.Text" xml:space="preserve">
+    <value>Table</value>
+  </data>
+  <data name="FurnitureListBoxItem.Wall.Text" xml:space="preserve">
+    <value>Wall segment</value>
+  </data>
+  <data name="OpenFileDialog.Fail" xml:space="preserve">
+    <value>Failed to load the blueprint.</value>
+  </data>
+  <data name="OpenFileDialog.Success" xml:space="preserve">
+    <value>Blueprint loaded successfully!</value>
+  </data>
+  <data name="SaveFileDialog.Fail" xml:space="preserve">
+    <value>Failed to save the blueprint.</value>
+  </data>
+  <data name="SaveFileDialog.Success" xml:space="preserve">
+    <value>Blueprint saved successfully!</value>
   </data>
 </root>

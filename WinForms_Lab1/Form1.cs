@@ -5,8 +5,10 @@ using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Resources;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,8 +23,15 @@ namespace WinForms_Lab1
         private bool wallPainting = false;
         private PointF pathStart = new PointF();
         private GraphicsPath wallPath = new GraphicsPath();
+        private CultureInfo[] culutures;
         public RoomPlanner()
         {
+            culutures = new CultureInfo[]{
+                new CultureInfo("en-US"), // default
+                new CultureInfo("pl-PL"),
+            };
+            CultureInfo.CurrentCulture = culutures[0];
+            CultureInfo.CurrentUICulture = culutures[0];
             InitializeComponent();
             coffeTableButton.BackgroundImage.Tag = "coffe-table.png";
             tableButton.BackgroundImage.Tag = "table.png";
@@ -34,7 +43,7 @@ namespace WinForms_Lab1
         {
             newBitmapInPictureBox(splitContainer.Panel1.Width, splitContainer.Panel1.Height);
             blueprintPictureBox.MouseWheel += blueprintPictureBox_MouseWheel;
-        }
+    }
 
         private void newBlueprintToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -355,19 +364,18 @@ namespace WinForms_Lab1
 
         private void openBlueprintToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            ResourceManager resources = new ResourceManager(typeof(RoomPlanner));
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                //openFileDialog.InitialDirectory = Directory.GetCurrentDirectory();
-                openFileDialog.Filter = "Blueprint files (*.bp)|*.bp";
+                openFileDialog.Filter = resources.GetString("FileDialog.Filter");
                 openFileDialog.FilterIndex = 2;
-                //openFileDialog.RestoreDirectory = true;
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     string[] fileName = openFileDialog.FileName.Split('.');
                     if (fileName[fileName.Length - 1] != "bp")
                     {
-                        MessageBox.Show("Failed to open the blueprint.");
+                        MessageBox.Show(resources.GetString("OpenFileDialog.Fail"));
                         return;
                     }
 
@@ -397,11 +405,17 @@ namespace WinForms_Lab1
                             {
                                 createdFurnitureListBox.Items.Add(listBoxItems[i]);
                             }
+                            if (listBoxItems[0].pictureBoxSize.HasValue)
+                            {
+                                newBitmapInPictureBox(listBoxItems[0].pictureBoxSize.Value.X, listBoxItems[0].pictureBoxSize.Value.Y);
+                                FurnitureListBoxItem tmp = createdFurnitureListBox.Items[0] as FurnitureListBoxItem;
+                                tmp.pictureBoxSize = null;
+                            }
                         }
                     }
                     catch (System.Runtime.Serialization.SerializationException)
                     {
-                        MessageBox.Show("Failed to load the blueprint.");
+                        MessageBox.Show(resources.GetString("OpenFileDialog.Fail"));
                         return;
                     }
                     finally
@@ -411,16 +425,17 @@ namespace WinForms_Lab1
                     }
                     repaintPictureBoxFromList();
                     createdFurnitureListBox.RefreshItems();
-                    MessageBox.Show("Blueprint loaded successfully!");
+                    MessageBox.Show(resources.GetString("OpenFileDialog.Success"));
                 }
             }
         }
 
         private void saveBlueprintToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            ResourceManager resources = new ResourceManager(typeof(RoomPlanner));
             using (SaveFileDialog saveFileDialog = new SaveFileDialog())
             {
-                saveFileDialog.Filter = "Blueprint files (*.bp)|*.bp";
+                saveFileDialog.Filter = resources.GetString("FileDialog.Filter");
                 saveFileDialog.FilterIndex = 2;
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -428,7 +443,7 @@ namespace WinForms_Lab1
                     string[] fileName = saveFileDialog.FileName.Split('.');
                     if (fileName[fileName.Length - 1] != "bp")
                     {
-                        MessageBox.Show("Failed to save the blueprint.");
+                        MessageBox.Show(resources.GetString("SaveFileDialog.Fail"));
                         return;
                     }
 
@@ -445,13 +460,14 @@ namespace WinForms_Lab1
                                 if (createdFurnitureListBox.Items[i] is FurnitureListBoxItem item)
                                     listBoxItems.Add(item);
                             }
+                            listBoxItems[0].pictureBoxSize = new Point(blueprintPictureBox.Width, blueprintPictureBox.Height);
 
                             formatter.Serialize(fileStream, listBoxItems);
                         }
                     }
                     catch(Exception)
                     {
-                        MessageBox.Show("Failed to save the blueprint.");
+                        MessageBox.Show(resources.GetString("SaveFileDialog.Fail"));
                         return;
                     }
                     finally
@@ -459,9 +475,41 @@ namespace WinForms_Lab1
                         if (fileStream != null)
                             fileStream.Close();
                     }
-                    MessageBox.Show("Blueprint saved successfully!");
+                    MessageBox.Show(resources.GetString("SaveFileDialog.Success"));
                 }
             }
+        }
+
+        private void englishToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CultureInfo.CurrentCulture = culutures[0]; // en-US
+            CultureInfo.CurrentUICulture = culutures[0]; // en-US
+            reApplyResources();
+        }
+
+        private void polskiToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CultureInfo.CurrentCulture = culutures[1]; // pl-PL
+            CultureInfo.CurrentUICulture = culutures[1]; // pl-PL
+            reApplyResources();
+        }
+
+        private void reApplyResources()
+        {
+            ComponentResourceManager resources = new ComponentResourceManager(typeof(RoomPlanner));
+            this.Text = resources.GetString("$this.Text");
+            this.addFurnitureGroupBox.Text = resources.GetString("addFurnitureGroupBox.Text");
+            this.createdFurnitureGroupBox.Text = resources.GetString("createdFurnitureGroupBox.Text");
+            this.englishToolStripMenuItem.Text = resources.GetString("englishToolStripMenuItem.Text");
+            this.menuStrip.Text = resources.GetString("menuStrip.Text");
+            this.fileToolStripMenuItem.Text = resources.GetString("fileToolStripMenuItem.Text");
+            this.newBlueprintToolStripMenuItem.Text = resources.GetString("newBlueprintToolStripMenuItem.Text");
+            this.openBlueprintToolStripMenuItem.Text = resources.GetString("openBlueprintToolStripMenuItem.Text");
+            this.saveBlueprintToolStripMenuItem.Text = resources.GetString("saveBlueprintToolStripMenuItem.Text");
+            this.languageToolStripMenuItem.Text = resources.GetString("languageToolStripMenuItem.Text");
+            this.englishToolStripMenuItem.Text = resources.GetString("englishToolStripMenuItem.Text");
+            this.polskiToolStripMenuItem.Text = resources.GetString("polskiToolStripMenuItem.Text");
+            createdFurnitureListBox.RefreshItems();
         }
     }
 

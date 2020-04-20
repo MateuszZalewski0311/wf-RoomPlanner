@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Resources;
 using System.Runtime.Serialization;
 
 namespace WinForms_Lab1
@@ -16,7 +17,8 @@ namespace WinForms_Lab1
         [NonSerialized]
         public GraphicsPath path;
         private PointF[] pathPoints;
-        public FurnitureListBoxItem(Image _displayImage, PointF _displayPoint, GraphicsPath _path = null)
+        public Point? pictureBoxSize;
+        public FurnitureListBoxItem(Image _displayImage, PointF _displayPoint, GraphicsPath _path = null, Point? _pictureBoxSize = null)
         {
             displayImage = _displayImage;
             displayPoint = _displayPoint;
@@ -25,36 +27,38 @@ namespace WinForms_Lab1
             path = _path;
             pathPoints = null;
             type = (string)displayImage.Tag;
+            pictureBoxSize = _pictureBoxSize;
         }
 
         public override string ToString()
         {
+            ResourceManager resources = new ResourceManager(typeof(RoomPlanner));
             switch (type)
             { 
                 case "coffe-table.png":
-                    return $"Kitchen Table {displayPoint}";
+                    return resources.GetString("FurnitureListBoxItem.CoffeTable.Text") + $" {displayPoint}";
                 case "double-bed.png":
-                    return $"Bed {displayPoint}";
+                    return resources.GetString("FurnitureListBoxItem.DoubleBed.Text") + $" {displayPoint}";
                 case "sofa.png":
-                    return $"Sofa {displayPoint}";
+                    return resources.GetString("FurnitureListBoxItem.Sofa.Text") + $" {displayPoint}";
                 case "table.png":
-                    return $"Table {displayPoint}";
+                    return resources.GetString("FurnitureListBoxItem.Table.Text") + $" {displayPoint}";
                 case "wall.png":
-                    return $"Wall {displayPoint}";
+                    return resources.GetString("FurnitureListBoxItem.Wall.Text") + $" {displayPoint}";
                 default:
                     return "Error in Item";
             }
         }
 
         [OnSerializing]
-        private void PathToPts(StreamingContext context)
+        private void OnSer(StreamingContext context)
         {
             if (path != null && path.PointCount > 0)
                 pathPoints = path.PathPoints;
         }
 
         [OnDeserialized]
-        private void PtsToPath(StreamingContext context)
+        private void OnDesered(StreamingContext context)
         {
             if (pathPoints != null && pathPoints.Length > 1)
             {
