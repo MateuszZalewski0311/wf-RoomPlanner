@@ -7,4 +7,4 @@ Deleting - done\
 Moving - done\
 Rotating - done\
 Save/Load - done\
-Localization - TODO
+Localization - done
