@@ -31,6 +31,7 @@ namespace WinForms_Lab1
         private void RoomPlanner_Load(object sender, EventArgs e)
         {
             newBitmapInPictureBox(splitContainer.Panel1.Width, splitContainer.Panel1.Height);
+            blueprintPictureBox.MouseWheel += blueprintPictureBox_MouseWheel;
         }
 
         private void newBlueprintToolStripMenuItem_Click(object sender, EventArgs e)
@@ -230,6 +231,18 @@ namespace WinForms_Lab1
             repaintPictureBoxFromList(e.Location);
         }
 
+        private void blueprintPictureBox_MouseWheel(object sender, MouseEventArgs e)
+        {
+            if (createdFurnitureListBox.SelectedIndex < 0)
+                return;
+
+            HandledMouseEventArgs he = (HandledMouseEventArgs)e;
+            he.Handled = true;
+            if (createdFurnitureListBox.SelectedItem is FurnitureListBoxItem selectedItem)
+                selectedItem.rotation -= e.Delta / 12;
+            repaintPictureBoxFromList();
+        }
+
         private void repaintPictureBoxFromList(PointF? mouseClickPoint = null)
         {
             // Pen handle for wall painting
@@ -264,18 +277,38 @@ namespace WinForms_Lab1
                         wallPen = new Pen(Color.Black, 10); // opaque
                     wallPen.LineJoin = LineJoin.Round;
 
-                    if (item.path != null && item.path.PointCount > 0)
+                    //Matrix for rotation
+                    if (item.path != null)
                     {
-                        GraphicsPath graphicsPath = (GraphicsPath)item.path.Clone();
-                        if (wallPath == item.path && mouseClickPoint != null)
-                            graphicsPath.AddLine(graphicsPath.GetLastPoint(), (PointF)mouseClickPoint);
-                        g.DrawPath(wallPen, graphicsPath);
+                        Matrix rotateMatrix = null;
+                        if (item.path.PointCount > 1)
+                        {
+                            rotateMatrix = new Matrix();
+                            rotateMatrix.RotateAt(item.rotation, item.path.PathPoints[0]);
+                        }
+
+                        if (item.path.PointCount > 0)
+                        {
+                            GraphicsPath graphicsPath = (GraphicsPath)item.path.Clone();
+                            if (wallPath == item.path && mouseClickPoint != null)
+                                graphicsPath.AddLine(graphicsPath.GetLastPoint(), (PointF)mouseClickPoint);
+                            if (rotateMatrix != null)
+                                graphicsPath.Transform(rotateMatrix);
+                            g.DrawPath(wallPen, graphicsPath);
+                        }
+                        else if (item.path.PointCount == 0 && mouseClickPoint != null)
+                            g.DrawLine(wallPen, pathStart, (PointF)mouseClickPoint);
                     }
-                    else if (item.path != null && item.path.PointCount == 0 && mouseClickPoint != null)
-                        g.DrawLine(wallPen, pathStart, (PointF)mouseClickPoint);
                 }
                 else
                 {
+                    if (item.rotation != 0)
+                    {
+                        g.TranslateTransform(item.displayPoint.X, item.displayPoint.Y);
+                        g.RotateTransform(item.rotation);
+                        g.TranslateTransform(-item.displayPoint.X, -item.displayPoint.Y);
+                    }
+
                     PointF point = new PointF(item.displayPoint.X - item.displayImage.Width / 2, item.displayPoint.Y - item.displayImage.Height / 2);
                     if (item == createdFurnitureListBox.SelectedItem)
                     {
@@ -284,6 +317,7 @@ namespace WinForms_Lab1
                     else
                         g.DrawImage(item.displayImage, point);
                 }
+                g.ResetTransform();
             }
             g.Dispose();
             blueprintPictureBox.Refresh();
