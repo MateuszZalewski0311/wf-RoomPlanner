@@ -74,12 +74,13 @@
             // 
             // splitContainer.Panel2
             // 
+            resources.ApplyResources(this.splitContainer.Panel2, "splitContainer.Panel2");
             this.splitContainer.Panel2.Controls.Add(this.tableLayoutPanel1);
             // 
             // blueprintPictureBox
             // 
-            this.blueprintPictureBox.BackColor = System.Drawing.Color.White;
             resources.ApplyResources(this.blueprintPictureBox, "blueprintPictureBox");
+            this.blueprintPictureBox.BackColor = System.Drawing.Color.White;
             this.blueprintPictureBox.Name = "blueprintPictureBox";
             this.blueprintPictureBox.TabStop = false;
             this.blueprintPictureBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.blueprintPictureBox_MouseDown);
@@ -95,8 +96,8 @@
             // 
             // addFurnitureGroupBox
             // 
-            this.addFurnitureGroupBox.Controls.Add(this.flowLayoutPanel1);
             resources.ApplyResources(this.addFurnitureGroupBox, "addFurnitureGroupBox");
+            this.addFurnitureGroupBox.Controls.Add(this.flowLayoutPanel1);
             this.addFurnitureGroupBox.Name = "addFurnitureGroupBox";
             this.addFurnitureGroupBox.TabStop = false;
             // 
@@ -112,9 +113,9 @@
             // 
             // coffeTableButton
             // 
+            resources.ApplyResources(this.coffeTableButton, "coffeTableButton");
             this.coffeTableButton.BackColor = System.Drawing.Color.White;
             this.coffeTableButton.BackgroundImage = global::WinForms_Lab1.Properties.Resources.coffee_table;
-            resources.ApplyResources(this.coffeTableButton, "coffeTableButton");
             this.coffeTableButton.Cursor = System.Windows.Forms.Cursors.AppStarting;
             this.coffeTableButton.Name = "coffeTableButton";
             this.coffeTableButton.UseVisualStyleBackColor = false;
@@ -122,9 +123,9 @@
             // 
             // tableButton
             // 
+            resources.ApplyResources(this.tableButton, "tableButton");
             this.tableButton.BackColor = System.Drawing.Color.White;
             this.tableButton.BackgroundImage = global::WinForms_Lab1.Properties.Resources.table;
-            resources.ApplyResources(this.tableButton, "tableButton");
             this.tableButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.tableButton.Name = "tableButton";
             this.tableButton.UseVisualStyleBackColor = false;
@@ -132,9 +133,9 @@
             // 
             // sofaButton
             // 
+            resources.ApplyResources(this.sofaButton, "sofaButton");
             this.sofaButton.BackColor = System.Drawing.Color.White;
             this.sofaButton.BackgroundImage = global::WinForms_Lab1.Properties.Resources.sofa;
-            resources.ApplyResources(this.sofaButton, "sofaButton");
             this.sofaButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.sofaButton.Name = "sofaButton";
             this.sofaButton.UseVisualStyleBackColor = false;
@@ -142,9 +143,9 @@
             // 
             // doubleBedButton
             // 
+            resources.ApplyResources(this.doubleBedButton, "doubleBedButton");
             this.doubleBedButton.BackColor = System.Drawing.Color.White;
             this.doubleBedButton.BackgroundImage = global::WinForms_Lab1.Properties.Resources.double_bed;
-            resources.ApplyResources(this.doubleBedButton, "doubleBedButton");
             this.doubleBedButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.doubleBedButton.Name = "doubleBedButton";
             this.doubleBedButton.UseVisualStyleBackColor = false;
@@ -152,9 +153,9 @@
             // 
             // wallButton
             // 
+            resources.ApplyResources(this.wallButton, "wallButton");
             this.wallButton.BackColor = System.Drawing.Color.White;
             this.wallButton.BackgroundImage = global::WinForms_Lab1.Properties.Resources.wall;
-            resources.ApplyResources(this.wallButton, "wallButton");
             this.wallButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.wallButton.Name = "wallButton";
             this.wallButton.UseVisualStyleBackColor = false;
@@ -162,8 +163,8 @@
             // 
             // createdFurnitureGroupBox
             // 
-            this.createdFurnitureGroupBox.Controls.Add(this.createdFurnitureListBox);
             resources.ApplyResources(this.createdFurnitureGroupBox, "createdFurnitureGroupBox");
+            this.createdFurnitureGroupBox.Controls.Add(this.createdFurnitureListBox);
             this.createdFurnitureGroupBox.Name = "createdFurnitureGroupBox";
             this.createdFurnitureGroupBox.TabStop = false;
             // 
@@ -176,57 +177,57 @@
             // 
             // menuStrip
             // 
+            resources.ApplyResources(this.menuStrip, "menuStrip");
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem});
-            resources.ApplyResources(this.menuStrip, "menuStrip");
             this.menuStrip.Name = "menuStrip";
             // 
             // fileToolStripMenuItem
             // 
+            resources.ApplyResources(this.fileToolStripMenuItem, "fileToolStripMenuItem");
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newBlueprintToolStripMenuItem,
             this.openBlueprintToolStripMenuItem,
             this.saveBlueprintToolStripMenuItem,
             this.languageToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            resources.ApplyResources(this.fileToolStripMenuItem, "fileToolStripMenuItem");
             // 
             // newBlueprintToolStripMenuItem
             // 
-            this.newBlueprintToolStripMenuItem.Name = "newBlueprintToolStripMenuItem";
             resources.ApplyResources(this.newBlueprintToolStripMenuItem, "newBlueprintToolStripMenuItem");
+            this.newBlueprintToolStripMenuItem.Name = "newBlueprintToolStripMenuItem";
             this.newBlueprintToolStripMenuItem.Click += new System.EventHandler(this.newBlueprintToolStripMenuItem_Click);
             // 
             // openBlueprintToolStripMenuItem
             // 
-            this.openBlueprintToolStripMenuItem.Name = "openBlueprintToolStripMenuItem";
             resources.ApplyResources(this.openBlueprintToolStripMenuItem, "openBlueprintToolStripMenuItem");
+            this.openBlueprintToolStripMenuItem.Name = "openBlueprintToolStripMenuItem";
             this.openBlueprintToolStripMenuItem.Click += new System.EventHandler(this.openBlueprintToolStripMenuItem_Click);
             // 
             // saveBlueprintToolStripMenuItem
             // 
-            this.saveBlueprintToolStripMenuItem.Name = "saveBlueprintToolStripMenuItem";
             resources.ApplyResources(this.saveBlueprintToolStripMenuItem, "saveBlueprintToolStripMenuItem");
+            this.saveBlueprintToolStripMenuItem.Name = "saveBlueprintToolStripMenuItem";
             this.saveBlueprintToolStripMenuItem.Click += new System.EventHandler(this.saveBlueprintToolStripMenuItem_Click);
             // 
             // languageToolStripMenuItem
             // 
+            resources.ApplyResources(this.languageToolStripMenuItem, "languageToolStripMenuItem");
             this.languageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.englishToolStripMenuItem,
             this.polskiToolStripMenuItem});
             this.languageToolStripMenuItem.Name = "languageToolStripMenuItem";
-            resources.ApplyResources(this.languageToolStripMenuItem, "languageToolStripMenuItem");
             // 
             // englishToolStripMenuItem
             // 
-            this.englishToolStripMenuItem.Name = "englishToolStripMenuItem";
             resources.ApplyResources(this.englishToolStripMenuItem, "englishToolStripMenuItem");
+            this.englishToolStripMenuItem.Name = "englishToolStripMenuItem";
             this.englishToolStripMenuItem.Click += new System.EventHandler(this.englishToolStripMenuItem_Click);
             // 
             // polskiToolStripMenuItem
             // 
-            this.polskiToolStripMenuItem.Name = "polskiToolStripMenuItem";
             resources.ApplyResources(this.polskiToolStripMenuItem, "polskiToolStripMenuItem");
+            this.polskiToolStripMenuItem.Name = "polskiToolStripMenuItem";
             this.polskiToolStripMenuItem.Click += new System.EventHandler(this.polskiToolStripMenuItem_Click);
             // 
             // RoomPlanner

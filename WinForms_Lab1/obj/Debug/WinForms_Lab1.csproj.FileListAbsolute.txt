@@ -11,3 +11,6 @@ D:\Programowanie\C#\Projects vs19\WinForms_Lab1\WinForms_Lab1\obj\Debug\WinForms
 D:\Programowanie\C#\Projects vs19\WinForms_Lab1\WinForms_Lab1\bin\Debug\pl-PL\WinForms_Lab1.resources.dll
 D:\Programowanie\C#\Projects vs19\WinForms_Lab1\WinForms_Lab1\obj\Debug\WinForms_Lab1.RoomPlanner.pl-PL.resources
 D:\Programowanie\C#\Projects vs19\WinForms_Lab1\WinForms_Lab1\obj\Debug\pl-PL\WinForms_Lab1.resources.dll
+D:\Programowanie\C#\Projects vs19\WinForms_Lab1\WinForms_Lab1\bin\Debug\en-US\WinForms_Lab1.resources.dll
+D:\Programowanie\C#\Projects vs19\WinForms_Lab1\WinForms_Lab1\obj\Debug\WinForms_Lab1.RoomPlanner.en-US.resources
+D:\Programowanie\C#\Projects vs19\WinForms_Lab1\WinForms_Lab1\obj\Debug\en-US\WinForms_Lab1.resources.dll

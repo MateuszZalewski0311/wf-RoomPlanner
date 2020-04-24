@@ -43,7 +43,7 @@ namespace WinForms_Lab1
         {
             newBitmapInPictureBox(splitContainer.Panel1.Width, splitContainer.Panel1.Height);
             blueprintPictureBox.MouseWheel += blueprintPictureBox_MouseWheel;
-    }
+        }
 
         private void newBlueprintToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -129,7 +129,20 @@ namespace WinForms_Lab1
                     {
                         Pen wallPen = new Pen(Color.Black, 10);
                         wallPen.LineJoin = LineJoin.Round;
-                        if (item.path.IsOutlineVisible(e.Location, wallPen))
+
+                        Matrix rotateMatrix = null;
+                        if (item.path.PointCount > 1)
+                        {
+                            rotateMatrix = new Matrix();
+                            rotateMatrix.RotateAt(item.rotation, item.path.PathPoints[0]);
+                        }
+                        GraphicsPath graphicsPath = (GraphicsPath)item.path.Clone();
+                        if (wallPath == item.path)
+                            graphicsPath.AddLine(graphicsPath.GetLastPoint(), e.Location);
+                        if (rotateMatrix != null)
+                            graphicsPath.Transform(rotateMatrix);
+
+                        if (graphicsPath.IsOutlineVisible(e.Location, wallPen))
                         {
                             createdFurnitureListBox.ClearSelected();
                             createdFurnitureListBox.SetSelected(i, true);
@@ -147,6 +160,10 @@ namespace WinForms_Lab1
                             item.anchorPoint = new PointF(item.displayPoint.X - e.X, item.displayPoint.Y - e.Y);
                         }
                     }
+                }
+                if (!movingSelectedItem)
+                {
+                    createdFurnitureListBox.ClearSelected();
                 }
                 return;
             }
@@ -484,32 +501,36 @@ namespace WinForms_Lab1
         {
             CultureInfo.CurrentCulture = culutures[0]; // en-US
             CultureInfo.CurrentUICulture = culutures[0]; // en-US
-            reApplyResources();
+            changeLanguage();
         }
 
         private void polskiToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CultureInfo.CurrentCulture = culutures[1]; // pl-PL
             CultureInfo.CurrentUICulture = culutures[1]; // pl-PL
-            reApplyResources();
+            changeLanguage();
         }
 
-        private void reApplyResources()
+        private void changeLanguage()
         {
-            ComponentResourceManager resources = new ComponentResourceManager(typeof(RoomPlanner));
-            this.Text = resources.GetString("$this.Text");
-            this.addFurnitureGroupBox.Text = resources.GetString("addFurnitureGroupBox.Text");
-            this.createdFurnitureGroupBox.Text = resources.GetString("createdFurnitureGroupBox.Text");
-            this.englishToolStripMenuItem.Text = resources.GetString("englishToolStripMenuItem.Text");
-            this.menuStrip.Text = resources.GetString("menuStrip.Text");
-            this.fileToolStripMenuItem.Text = resources.GetString("fileToolStripMenuItem.Text");
-            this.newBlueprintToolStripMenuItem.Text = resources.GetString("newBlueprintToolStripMenuItem.Text");
-            this.openBlueprintToolStripMenuItem.Text = resources.GetString("openBlueprintToolStripMenuItem.Text");
-            this.saveBlueprintToolStripMenuItem.Text = resources.GetString("saveBlueprintToolStripMenuItem.Text");
-            this.languageToolStripMenuItem.Text = resources.GetString("languageToolStripMenuItem.Text");
-            this.englishToolStripMenuItem.Text = resources.GetString("englishToolStripMenuItem.Text");
-            this.polskiToolStripMenuItem.Text = resources.GetString("polskiToolStripMenuItem.Text");
-            createdFurnitureListBox.RefreshItems();
+            ListBox.ObjectCollection items = createdFurnitureListBox.Items;
+
+            Size pictureBoxSize = blueprintPictureBox.Image.Size;
+            Size windowSize = Size;
+            Controls.Clear();
+            InitializeComponent();
+            Size = windowSize;
+
+            newBitmapInPictureBox(pictureBoxSize.Width, pictureBoxSize.Height);
+            blueprintPictureBox.MouseWheel += blueprintPictureBox_MouseWheel;
+            coffeTableButton.BackgroundImage.Tag = "coffe-table.png";
+            tableButton.BackgroundImage.Tag = "table.png";
+            sofaButton.BackgroundImage.Tag = "sofa.png";
+            doubleBedButton.BackgroundImage.Tag = "double-bed.png";
+            wallButton.BackgroundImage.Tag = "wall.png";
+
+            createdFurnitureListBox.Items.AddRange(items);
+            repaintPictureBoxFromList();
         }
     }
 
