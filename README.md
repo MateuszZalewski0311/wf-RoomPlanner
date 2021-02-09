@@ -1,10 +1,10 @@
 # RoomPlanner
 This is a RoomPlanner app.
 
-Adding - done\
-Selecting furniture both by clicking and using list - done\
-Deleting - done\
-Moving - done\
-Rotating - done\
-Save/Load - done\
-Localization - done
+* Adding - DONE
+* Selecting furniture both by clicking and using list - DONE
+* Deleting - DONE
+* Moving - DONE
+* Rotating - DONE
+* Save/Load - DONE
+* Localization - DONE
